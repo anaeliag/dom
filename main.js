@@ -1,4 +1,4 @@
-console.log(document); //documento
+/*console.log(document); //documento
 console.log(document.head); //head
 console.log(document.body); //body
 
@@ -73,5 +73,45 @@ console.log("accordionbodiesHTMLCollection", accordionbodiesHTMLCollection)*/
 // queryselector
 // queryselectorall
 
+function construyePerfil(datos) {
+    const profile = document.createElement("h1");
+    profile.textContent = `Bienvenido: ${datos.nombre}`;
+    document.getElementById("perfilUsuario").appendChild(profile);
+}
 
 
+function login(user,pass,bd) {
+    //bd.filter((valor, posicion, array) => ({}));
+    const busqueda = bd.filter((valor) => valor.usuario === user && valor.contrasena === pass); //regresa arreglo y map tambien
+    return busqueda //regresar datos de una ejecicion
+}
+
+
+function hola() {
+    alert("hola mundo");
+}
+
+const elemento = document.getElementById("accion") //obtengo nodo
+
+//document.getElementById("accion").addEventListener("click", hola); //click es el evento y hola es la definicion de la funcion
+
+elemento.addEventListener("click", (event) => {
+    const datos = document.getElementsByTagName("input"); //html
+    const usuario = datos[0]; //input usuario, nodo
+    const contrasena = datos[1]; //input contraseña
+    console.log("usuario", usuario.value)
+    console.log("usuario", contrasena.value)
+    if (usuario.value === "" || contrasena.value === "") {
+        alert("proporciona los datos")
+    } else {
+        //alert("datos obtenidos")
+        const loginUsuario = login(usuario.value, contrasena.value, BD);
+        console.log("Usuario logueado", loginUsuario);
+        if (loginUsuario.length > 0) {
+            alert("usuario logueado");
+            construyePerfil(loginUsuario[0])
+        } else {
+            alert("usuario no encontrado")
+        }
+    }
+ });
